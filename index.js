@@ -5,6 +5,7 @@ const fs = require("fs");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
+const teamArray = [];
 
 
 const generateHTML = ({ managerName, managerId, managerEmail, managerOfficeNumber }) =>
@@ -33,33 +34,31 @@ const generateHTML = ({ managerName, managerId, managerEmail, managerOfficeNumbe
 
 //fs.writeFile("index.html", "",)
 // function to ask questions through inquire
-
-
-// function to ask manager questions
-inquirer
+function addMembers(){
+    inquirer
     .prompt([
         //enter the team manager’s name, employee ID, email address, and office number
         {
-            type: 'input',
-            name: "managerName",
-            message: "Enter the manager's name",
+            type: 'list',
+            name: "userChoice",
+            message: "Who else would you like to add to your team?",
+            choices: [
+                "Engineer",
+                "Intern",
+                "No one, that is my whole team."
+            ]
         },
-        {
-            type: 'input',
-            name: "managerId",
-            message: "Enter the manager's ID number",
-        },
-        {
-            type: 'input',
-            name: "managerEmail",
-            message: "Enter the manager's email",
-        },
-        {
-            type: 'input',
-            name: "managerOfficeNumber",
-            message: "Enter the manager's office number",
+    // transfer information that is input into an object with an array to be stored and used later
+    ]).then((answers)=> {
+        switch(answers.userChoice){
+            case "Engineer":
+                addEngineer();
+                break;
+            case "Intern":
+                addIntern();
+                break;
         }
-    ])
+    })
 
 // function to ask if they want to add an engineer, intern, or finish
 // if they want to add engineer, ask engineer questions
