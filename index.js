@@ -57,7 +57,106 @@ function addMembers(){
             case "Intern":
                 addIntern();
                 break;
+            default:
+                createTeam();
+                break;
         }
+    })
+}
+
+function addEngineer(){
+    inquirer
+    .prompt([
+        //enter the team engineer’s name, employee ID, email address, and github 
+        {
+            type: 'input',
+            name: "engineerName",
+            message: "Enter the engineer's name",
+        },
+        {
+            type: 'input',
+            name: "engineerId",
+            message: "Enter the engineer's ID number",
+        },
+        {
+            type: 'input',
+            name: "engineerEmail",
+            message: "Enter the engineer's email",
+        },
+        {
+            type: 'input',
+            name: "engineerGithub",
+            message: "Enter the engineer's github",
+        }
+    // transfer information that is input into an object with an array to be stored and used later
+    ]).then((answers)=> {
+        let engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
+        teamArray.push(engineer);
+        addMembers();
+    })
+}
+
+function addIntern(){
+    inquirer
+    .prompt([
+        //enter the team intern’s name, employee ID, email address, and school 
+        {
+            type: 'input',
+            name: "internName",
+            message: "Enter the intern's name",
+        },
+        {
+            type: 'input',
+            name: "internId",
+            message: "Enter the intern's ID number",
+        },
+        {
+            type: 'input',
+            name: "internEmail",
+            message: "Enter the intern's email",
+        },
+        {
+            type: 'input',
+            name: "internSchool",
+            message: "Enter the intern's school",
+        }
+    // transfer information that is input into an object with an array to be stored and used later
+    ]).then((answers)=> {
+        let intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
+        teamArray.push(intern);
+        addMembers();
+    })
+}
+
+// function to ask manager questions
+inquirer
+    .prompt([
+        //enter the team manager’s name, employee ID, email address, and office number
+        {
+            type: 'input',
+            name: "managerName",
+            message: "Enter the manager's name",
+        },
+        {
+            type: 'input',
+            name: "managerId",
+            message: "Enter the manager's ID number",
+        },
+        {
+            type: 'input',
+            name: "managerEmail",
+            message: "Enter the manager's email",
+        },
+        {
+            type: 'input',
+            name: "managerOfficeNumber",
+            message: "Enter the manager's office number",
+        }
+    // transfer information that is input into an object with an array to be stored and used later
+    ]).then((answers)=> {
+        let manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNumber);
+        teamArray.push(manager);
+        addMembers();
     })
 
 // function to ask if they want to add an engineer, intern, or finish
@@ -72,14 +171,14 @@ function addMembers(){
 // writes a new file 'index.html' and prints data from inquirer
 //const data = "hello";
 
-.then((answers)=> {
-    const htmlPageContent = generateHTML(answers);
+function createTeam(){
+    const htmlPageContent = generateHTML(teamArray);
 
-    fs.writeFile('index.html', htmlPageContent, (err) => {
-    if (err){
-        console.log('Unable to create this file.');
-    } else {
-        console.log("Success");
-    }
-})
-})
+    fs.writeFileSync(path.join(__dirname,'dist/index.html'), htmlPageContent, 'utf8', (err) => {
+        if (err){
+            console.log('Unable to create this file.');
+        } else {
+            console.log("Success");
+        }
+    })
+}
