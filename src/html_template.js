@@ -37,12 +37,24 @@ return
   </div>`;
 }
 
-function generateTeam(){
+function generateTeam(team){
     let teamHTML = [];
-    
+    teamHTML.push(team
+        .filter(employee => employee.findRole() === "Manager")
+        .map(manager => generateManager(manager))
+    );
+    teamHTML.push(team
+        .filter(employee => employee.findRole() === "Engineer")
+        .map(engineer => generateEngineer(engineer))
+    );
+    teamHTML.push(team
+        .filter(employee => employee.findRole() === "Intern")
+        .map(intern => generateIntern(intern))
+    );
+    return teamHTML.join("");
 }
 
-function generateHTML(){
+function generateHTML(team){
 return 
     `<!DOCTYPE html>
     <html lang="en">
