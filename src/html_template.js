@@ -1,3 +1,7 @@
+const Manager = require("../lib/Manager");
+const Engineer = require("../lib/Engineer");
+const Intern = require("../lib/Intern");
+
 const generateManager = (manager) =>{
 return 
   `<div class="container">
@@ -12,17 +16,17 @@ return
 }
 
 const generateEngineer = (engineer) =>{
-    return 
-      `<div class="container">
-        <h1 class="display-4">Hi! My name is ${engineer.findName}</h1>
-        <p class="lead">My Id number is ${engineer.findId}.</p>
-        <h3>Example heading <span class="badge badge-secondary">Contact Me</span></h3>
-        <ul class="list-group">
-          <li class="list-group-item">My email is ${engineer.findEmail}</li>
-          <li class="list-group-item">My GitHub is: ${engineer.findGithub}</li>
-        </ul>
-      </div>`;
-    }
+  return 
+    `<div class="container">
+      <h1 class="display-4">Hi! My name is ${engineer.findName}</h1>
+      <p class="lead">My Id number is ${engineer.findId}.</p>
+      <h3>Example heading <span class="badge badge-secondary">Contact Me</span></h3>
+      <ul class="list-group">
+        <li class="list-group-item">My email is ${engineer.findEmail}</li>
+        <li class="list-group-item">My GitHub is: ${engineer.findGithub}</li>
+      </ul>
+    </div>`;
+  }
 
 const generateIntern = (intern) =>{
 return 
@@ -51,12 +55,7 @@ function generateTeam(team){
         .filter(employee => employee.findRole() === "Intern")
         .map(intern => generateIntern(intern))
     );
-    return teamHTML.join("");
-}
-
-function generateHTML(team){
-return 
-    `<!DOCTYPE html>
+    teamHTML.join(`<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -80,12 +79,50 @@ return
         <div class="container">
             <div class="row">
                 <div class="team-area col-12 d-flex justify-content-center">
-                    ${generateTeam(team)}
+                    ${Manager}
+                    ${Engineer}
+                    ${Intern}
+                    // ${teamHTML}
                 </div>
             </div>
         </div>
     </body>
-    </html>`;
+    </html>`);
+
+    // // return
+    // `<!DOCTYPE html>
+    // <html lang="en">
+    // <head>
+    //     <meta charset="UTF-8">
+    //     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    //     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    //     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    //         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    //     <link rel="stylesheet" href="style.css">
+    //     <script src="https://kit.fontawesome.com/c502137733.js"></script>
+    //     <title>Team Directory</title>
+    // </head>
+
+    // <body>
+    //     <div class="container-fluid">
+    //         <div class="row">
+    //             <div class="col-12 jumbotron mb-3 team-heading">
+    //                 <h1 class="text-center">My Team</h1>
+    //             </div>
+    //         </div>
+    //     </div>
+    //     <div class="container">
+    //         <div class="row">
+    //             <div class="team-area col-12 d-flex justify-content-center">
+    //                 ${Manager}
+    //                 ${Engineer}
+    //                 ${Intern}
+    //                 // ${teamHTML}
+    //             </div>
+    //         </div>
+    //     </div>
+    // </body>
+    // </html>`;
 }
 
-module.exports = generateHTML;
+module.exports = generateTeam;
